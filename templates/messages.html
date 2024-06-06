@@ -2,4 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>받은 메시지들</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>받은 메시지들</h1>
+    <ul class="message-list">
+      {% for message in messages %}
+        <li class="message-item">
+          {{ message.content }}
+          <a href="{{ url_for('delete_message', message_id=message.id) }}" class="delete-btn">삭제</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}" class="btn">돌아가기</a>
+  </div>
+</body>
+</html>
