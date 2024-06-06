@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloudtype - Flask</title>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>익명 메시지</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<div class="hero min-h-screen bg-base-200">
-  <div class="hero-content flex-col lg:flex-row-reverse">
-    <img src="{{ url_for('static', filename='img/flask.webp') }}" class="w-36 rounded-lg md:ml-5 lg:ml-5"  alt="flask"/>
-    <div>
-      <h1 class="text-5xl font-bold">Flask</h1>
-      <p class="py-6">클라우드타입에서 배포한 Flask 어플리케이션입니다.</p>
-      <button type="button" onclick="window.open('https://github.com/cloudtype-examples/java-springboot')" class="btn btn-outline rounded">
-        GitHub
-      </button>
-      <button type="button" onclick="window.open('https://docs.cloudtype.io/')" class="btn btn-outline rounded">
-        Docs
-      </button>
-      <button type="button" onclick="window.open('https://discord.gg/U7HX4BA6hu')" class="btn btn-outline rounded">
-        Discord
-      </button>
-    </div>
+  <div id="loading">
+    <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading...">
   </div>
-</div>
+  <div class="container">
+    <h1>익명 메시지 보내기</h1>
+    {% if current_user.is_authenticated %}
+      <form action="{{ url_for('send') }}" method="post">
+        <input type="text" name="receiver" placeholder="수신자 아이디"><br>
+        <textarea name="message" rows="4" cols="50" placeholder="여기에 메시지를 입력하세요"></textarea><br>
+        <button type="submit">보내기</button>
+      </form>
+      <a href="{{ url_for('logout') }}" class="btn">로그아웃</a>
+      <a href="{{ url_for('messages') }}" class="btn">받은 메시지들</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="btn">로그인</a> 또는 <a href="{{ url_for('register') }}" class="btn">회원가입</a>
+    {% endif %}
+  </div>
 </body>
 </html>
